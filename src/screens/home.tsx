@@ -119,7 +119,9 @@ const Home = ({ navigation }: any) => {
               >
                 No negative marking for incorrect answers.
               </Text>
-              <TouchableOpacity style={styles.finalStartBtn}>
+              <TouchableOpacity style={styles.finalStartBtn} onPress={()=>{
+                navigation.navigate("Quiz");
+              }}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>
                   Start Your Quiz
                 </Text>
