@@ -7,7 +7,13 @@ import {
   Touchable,
   TouchableOpacity,
   ScrollView,
+  BackHandler,
+  Pressable,
+  Dimensions,
+  Modal,
 } from "react-native";
+const { height, width } = Dimensions.get("screen");
+import { FontAwesome } from "@expo/vector-icons";
 
 function shuffleArray(array: any) {
   for (let i = array.length - 1; i >= 1; i--) {
@@ -26,14 +32,14 @@ let Quiz = () => {
   let [options, setOptions] = useState(["a", "b", "c", "d"]);
 
   let generateOptions = () => {
-    let arr = [...Quiz_data[quesNo-1].Incorect_Ans];
-    arr.push(Quiz_data[quesNo-1].CorrectAns);
+    let arr = [...Quiz_data[quesNo - 1].Incorect_Ans];
+    arr.push(Quiz_data[quesNo - 1].CorrectAns);
     arr = shuffleArray(arr);
     setOptions(arr);
   };
   useEffect(() => {
     generateOptions();
-  },[quesNo]);
+  }, [quesNo]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,7 +59,20 @@ let Quiz = () => {
       generateOptions();
     }
   };
-
+  const [showWarning, SetshowWarning] = useState(false);
+  const alert = () => {
+    SetshowWarning(true);
+  };
+  const showWarningfalse = () => {
+    SetshowWarning(false);
+  };
+  useEffect(() => {
+    const backbuttonHander = () => {
+      alert()
+      return true;
+    };
+    BackHandler.addEventListener("hardwareBackPress", backbuttonHander);
+  });
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -74,7 +93,7 @@ let Quiz = () => {
             : Math.floor(currentTime / 60)}
           :{currentTime % 60 < 10 ? "0" + (currentTime % 60) : currentTime % 60}
         </Text>
-        <TouchableOpacity style={styles.endBtn}>
+        <TouchableOpacity style={styles.endBtn} onPress={() => alert()}>
           <Text style={{ fontSize: 15, color: "#FFFFFF", alignSelf: "center" }}>
             End
           </Text>
@@ -106,7 +125,7 @@ let Quiz = () => {
         </Text>
         <Text style={{ marginLeft: 20, fontSize: 22, fontWeight: "600" }}>
           {" "}
-          Q{quesNo}. {Quiz_data[quesNo-1].Ques}
+          Q{quesNo}. {Quiz_data[quesNo - 1].Ques}
         </Text>
         {options.map((e) => {
           return (
@@ -174,6 +193,77 @@ let Quiz = () => {
           </TouchableOpacity>
         </View>
       </View>
+      {
+        showWarning && (
+          <View style={styles.body}>
+            <Modal
+              visible={showWarning}
+              transparent
+              onRequestClose={() => showWarningfalse()}
+            >
+              <View style={styles.centered_view}>
+                <View style={styles.warning_modal}>
+                  <View style={styles.modal_heading}>
+                    <FontAwesome
+                      name="exclamation-circle"
+                      style={{
+                        color: "white",
+                        fontSize: 20,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        top: "30%",
+                      }}
+                    ></FontAwesome>
+                    <Text allowFontScaling={false} style={styles.textheading}>
+                      Confirm Exit
+                    </Text>
+                  </View>
+                  <View style={[styles.modal_body]}>
+                    <Text allowFontScaling={false} style={styles.text}>
+                      Are you sure you want to end the quiz ?
+                    </Text>
+                    <View
+                      style={{
+                        justifyContent: "flex-end",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <Pressable onPress={() => console.log("hello")}>
+                        <View style={styles.textYes}>
+                          <Text
+                            allowFontScaling={false}
+                            style={{
+                              alignSelf: "center",
+                              color: "white",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            YES
+                          </Text>
+                        </View>
+                      </Pressable>
+                      <Pressable onPress={() => showWarningfalse()}>
+                        <View style={styles.textNo}>
+                          <Text
+                            allowFontScaling={false}
+                            style={{
+                              alignSelf: "center",
+                              color: "grey",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            NO
+                          </Text>
+                        </View>
+                      </Pressable>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+          </View>
+        )
+      }
     </View>
   );
 };
@@ -305,6 +395,84 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+  },
+  body: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+  },
+  centered_view: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#00000099",
+  },
+  warning_modal: {
+    width: "86%",
+    height: height / 4.5,
+    backgroundColor: "#ffffff",
+    borderRadius: 7,
+  },
+  modal_heading: {
+    overflow: "hidden",
+    position: "relative",
+    width: "100%",
+    backgroundColor: "#498BEA",
+    borderRadius: 7,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    height: "30%",
+    paddingLeft: "5%",
+    justifyContent: "center",
+  },
+  modal_body: {
+    margin: "5%",
+  },
+  text: {
+    flexDirection: "row",
+    color: "#000000",
+    fontSize: width / 26,
+    fontFamily: "Montserrat",
+  },
+  textheading: {
+    color: "white",
+    fontSize: width / 18,
+    fontFamily: "Montserrat",
+    marginLeft: "10%",
+    bottom: "16%",
+  },
+  textYes: {
+    fontSize: width / 22,
+    margin: "5%",
+    marginRight: 20,
+    marginBottom: "0%",
+    fontFamily: "Montserrat",
+    borderWidth: 2,
+    borderColor: "#498BEA",
+    backgroundColor: "#498BEA",
+    color: "white",
+    fontWeight: "bold",
+    borderRadius: 4,
+    height: height / 21.5,
+    width: width / 5.8,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  textNo: {
+    position: "relative",
+    fontSize: width / 22,
+    marginTop: "7%",
+    color: "grey",
+    fontFamily: "Montserrat",
+    backgroundColor: "#fff",
+    borderWidth: 2,
+    borderColor: "#498BEA",
+    height: height / 21.5,
+    width: width / 5.8,
+    fontWeight: "bold",
+    borderRadius: 4,
+    alignSelf: "center",
+    justifyContent: "center",
   },
 });
 

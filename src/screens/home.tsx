@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   Modal,
+
 } from "react-native";
 import CategoryCard from "../components/categoryCard";
 const Home = ({ navigation }: any) => {
@@ -19,7 +20,7 @@ const Home = ({ navigation }: any) => {
     }, 1000);
   }, []);
 
-  function startQuizModal(value:any){
+  function startQuizModal(value: any) {
     setQuizConfirmModal(value);
   }
 
@@ -28,7 +29,7 @@ const Home = ({ navigation }: any) => {
     <View style={styles.container}>
       {modalVis && (
         <Modal visible={modalVis} style={styles.flashModal}>
-          <Text>Hello How are You</Text>
+          <Image source={require("../../assets/Splash.png")}></Image>
         </Modal>
       )}
       {quizConfirmModal && (
@@ -119,7 +120,7 @@ const Home = ({ navigation }: any) => {
               >
                 No negative marking for incorrect answers.
               </Text>
-              <TouchableOpacity style={styles.finalStartBtn} onPress={()=>{
+              <TouchableOpacity style={styles.finalStartBtn} onPress={() => {
                 navigation.navigate("Quiz");
               }}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>
