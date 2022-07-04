@@ -24,7 +24,7 @@ const Home = ({ navigation }: any) => {
   useEffect(() => {
     setTimeout(function () {
       setModalVis(false);
-    }, 1000);
+    }, 3000);
   }, []);
 
   function startQuizModal(value: any, id: any) {
@@ -394,9 +394,8 @@ const styles = StyleSheet.create({
     height: 330,
   },
   flashModal: {
-    height: "100%",
     width: "100%",
-    backgroundColor: "green",
+    height: "100%",
   },
   confirmQuizModal: {
     backgroundColor: "#000000aa",

@@ -24,6 +24,7 @@ function shuffleArray(array: any) {
   return array;
 }
 
+
 let Quiz = ({ navigation, route }: any) => {
   const param = route.params;
   let Quiz_data = param.Questionare;
