@@ -12,163 +12,274 @@ import {
 } from "react-native";
 const { height, width } = Dimensions.get("screen");
 const backgroundImage = require("../../assets/congratsbg.png");
-const CongratsScreen = ({ navigation, }: any) => {
+const CongratsScreen = ({ navigation,route }: any) => {
+    const param = route.params;
+    let QuizData=param.data;
+    let[ansStats,setAnsStats]=useState([]);
+    useEffect(()=>{
+        let cAns=0;
+        let wAns=0;
+        Object.entries(QuizData).forEach(([i,e]:any)=>{
+            if (e.correctAns == e.userAns) {
+              cAns++;
+            } else {
+                wAns++;
+            }
+            console.log(cAns);
+            console.log(wAns);
+            let arr: any = [cAns, wAns];
+            setAnsStats(arr);
+        })
+    },[])
     return (
-        <View style={styles.container}>
-            <ImageBackground source={backgroundImage}
-                style={styles.background}>
-                <View style={styles.congratsview}>
-                    <View
-                        style={{
-                            height: height / 6.5,
-                            top: height / 50,
-                        }}>
-                        <Image source={require("../../assets/congratsimage1.png")}
-                            style={{
-                                position: "absolute",
-                                width: height / 5.206,
-                                height: height / 5.206,
-                                alignItems: "center",
-                                alignSelf: "center",
-                            }}></Image>
-                        <Image source={require("../../assets/congratsimage5.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                // marginVertical: height / 65.7,
-                                top: height / 65.6,
-                                right: "8%",
-                                zIndex: 1,
-                            }}></Image>
-                        <Image source={require("../../assets/congratsimage7.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                // marginVertical: height / 65.7,
-                                top: height / 65.6,
-                                left: "8%",
-                                zIndex: 1,
-                            }}></Image>
-                        <Image source={require("../../assets/congratsimage4.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                // marginVertical: height / 65.7,
-                                top: height / 220.6,
-                                left: "8%"
-                            }}></Image>
+      <View style={styles.container}>
+        <ImageBackground source={backgroundImage} style={styles.background}>
+          <View style={styles.congratsview}>
+            <View
+              style={{
+                height: height / 6.5,
+                top: height / 50,
+              }}
+            >
+              <Image
+                source={require("../../assets/congratsimage1.png")}
+                style={{
+                  position: "absolute",
+                  width: height / 5.206,
+                  height: height / 5.206,
+                  alignItems: "center",
+                  alignSelf: "center",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/congratsimage5.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  // marginVertical: height / 65.7,
+                  top: height / 65.6,
+                  right: "8%",
+                  zIndex: 1,
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/congratsimage7.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  // marginVertical: height / 65.7,
+                  top: height / 65.6,
+                  left: "8%",
+                  zIndex: 1,
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/congratsimage4.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  // marginVertical: height / 65.7,
+                  top: height / 220.6,
+                  left: "8%",
+                }}
+              ></Image>
 
-                        <Image source={require("../../assets/congratsimage6.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                // marginVertical: height / 65.7,
-                                top: height / 220.6,
-                                right: "8%"
-                            }}></Image>
-                        <Image source={require("../../assets/congratsimage2.png")}
-                            style={{
-                                position: "absolute",
-                                width: height / 7.718,
-                                height: height / 7.718,
-                                alignSelf: "center",
-                                alignItems: "center",
-                                top: height / 35,
-                                zIndex: 1
-                            }}></Image>
-                        <Image source={require("../../assets/congratsimage3.png")}
-                            style={{
-                                position: "absolute",
-                                width: height / 9.545,
-                                alignSelf: "center",
-                                height: height / 9.545,
-                                marginVertical: height / 65.7,
-                                borderRadius: 100,
-                                top: height / 38.6,
-                                zIndex: 1
-                            }}></Image>
-                        <Image source={require("../../assets/blast3.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 68.6,
-                                left: "47%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/blast2.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 15.6,
-                                left: "37%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/triangle.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 10.6,
-                                left: "42%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/Star1.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 6.3,
-                                left: "25%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/Star2.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 10.9,
-                                right: "30%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/circle.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 5.5,
-                                right: "25%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/blast.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 25.5,
-                                right: "42%",
-                            }}>
-                        </Image>
-                        <Image source={require("../../assets/blast4.png")}
-                            style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                top: height / 20.5,
-                                right: "25%",
-                            }}>
-                        </Image>
-                        <Text style={{ top: height / 15, zIndex: 1, fontWeight: "bold", color: "#FFFFFF", fontSize: 18 }}>+500</Text>
-                        <Text style={{ top: height / 15, zIndex: 1, fontSize: 14, fontWeight: "400", color: "#FFFFFF" }}>Points</Text>
-                    </View>
-                    <Text style={{ top: "12%", color: '#666262', fontSize: 16, fontWeight: "bold" }}>You have completed the quiz !</Text>
-                    <Text style={{ top: "15%", color: '#634A4A', fontSize: 12, fontWeight: "300", }}>Thank you for taking time to participate Now let us see how you have performed in this quiz</Text>
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: "100%", height: "12%", top: "35%" }}>
-                        <View style={styles.correct}><Text style={{ top: "10%" }}>Correct</Text><Text style={{ top: "13%" }}>5</Text></View>
-                        <View style={styles.incorrect}><Text style={{ top: "10%" }}>Incorrect</Text><Text style={{ top: "13%" }}>5</Text></View>
-                    </View>
-                    <View style={{ flexDirection: "column", justifyContent: "space-evenly", width: "100%", height: "30%", alignItems: "center", top: "23%" }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("ViewAnswers")} style={styles.viewstats}><Text style={{ color: "#FFFFFF" }}>View Detailed Stats</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.goback} onPress={() => navigation.navigate("Home")}><Text style={{ color: "#69A6FF" }}>Go to homepage</Text></TouchableOpacity>
-                    </View>
-                </View>
-
-            </ImageBackground>
-        </View>
-    )
+              <Image
+                source={require("../../assets/congratsimage6.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  // marginVertical: height / 65.7,
+                  top: height / 220.6,
+                  right: "8%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/congratsimage2.png")}
+                style={{
+                  position: "absolute",
+                  width: height / 7.718,
+                  height: height / 7.718,
+                  alignSelf: "center",
+                  alignItems: "center",
+                  top: height / 35,
+                  zIndex: 1,
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/congratsimage3.png")}
+                style={{
+                  position: "absolute",
+                  width: height / 9.545,
+                  alignSelf: "center",
+                  height: height / 9.545,
+                  marginVertical: height / 65.7,
+                  borderRadius: 100,
+                  top: height / 38.6,
+                  zIndex: 1,
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/blast3.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 68.6,
+                  left: "47%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/blast2.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 15.6,
+                  left: "37%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/triangle.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 10.6,
+                  left: "42%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/Star1.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 6.3,
+                  left: "25%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/Star2.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 10.9,
+                  right: "30%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/circle.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 5.5,
+                  right: "25%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/blast.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 25.5,
+                  right: "42%",
+                }}
+              ></Image>
+              <Image
+                source={require("../../assets/blast4.png")}
+                style={{
+                  position: "absolute",
+                  alignSelf: "center",
+                  top: height / 20.5,
+                  right: "25%",
+                }}
+              ></Image>
+              <Text
+                style={{
+                  top: height / 15,
+                  zIndex: 1,
+                  fontWeight: "bold",
+                  color: "#FFFFFF",
+                  fontSize: 18,
+                }}
+              >
+                +500
+              </Text>
+              <Text
+                style={{
+                  top: height / 15,
+                  zIndex: 1,
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: "#FFFFFF",
+                }}
+              >
+                Points
+              </Text>
+            </View>
+            <Text
+              style={{
+                top: "12%",
+                color: "#666262",
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              You have completed the quiz !
+            </Text>
+            <Text
+              style={{
+                top: "15%",
+                color: "#634A4A",
+                fontSize: 12,
+                fontWeight: "300",
+              }}
+            >
+              Thank you for taking time to participate Now let us see how you
+              have performed in this quiz
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                width: "100%",
+                height: "12%",
+                top: "35%",
+              }}
+            >
+              <View style={styles.correct}>
+                <Text style={{ color: "#21272E" }}>Correct</Text>
+                <Text style={{ fontWeight: "500" }}>{ansStats[0]}</Text>
+              </View>
+              <View style={styles.incorrect}>
+                <Text style={{ color: "#21272E" }}>Incorrect</Text>
+                <Text style={{ fontWeight: "500" }}>{ansStats[1]}</Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                width: "100%",
+                height: "30%",
+                alignItems: "center",
+                top: "23%",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ViewAnswers",{data:QuizData})}
+                style={styles.viewstats}
+              >
+                <Text style={{ color: "#FFFFFF" }}>View Detailed Stats</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.goback}
+                onPress={() => navigation.navigate("Home")}
+              >
+                <Text style={{ color: "#69A6FF" }}>Go to homepage</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    );
 };
 const styles = StyleSheet.create({
     container: {
@@ -210,13 +321,15 @@ const styles = StyleSheet.create({
         backgroundColor: "#D8FEE6",
         borderRadius: 10,
         width: "35%",
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent:"center"
     },
     incorrect: {
         backgroundColor: "#FEDDDD",
         borderRadius: 10,
         width: "35%",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent:"center"
     },
 })
 export default CongratsScreen;

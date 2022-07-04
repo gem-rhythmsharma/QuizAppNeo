@@ -39,6 +39,7 @@ let Quiz = ({ navigation, route }: any) => {
   let [ref, setRef] = useState<any>(null);
   let [dataSourceCords, setDataSourceCords] = useState<any>([]);
   let [scrollToIndex, setScrollToIndex] = useState(0);
+  let [quizData,setQuizData]=useState([]);
 
   useEffect(() => {
     generateOptions();
@@ -123,10 +124,11 @@ let Quiz = ({ navigation, route }: any) => {
       arr[quesNo - 1] = 2;
       let arr2: any = stats;
       arr2[quesNo - 1] = {
-        ques: Quiz_data[quesNo].Ques,
-        correctAns: Quiz_data[quesNo].CorrectAns,
+        ques: Quiz_data[quesNo-1].Ques,
+        correctAns: Quiz_data[quesNo-1].CorrectAns,
         userAns: selected[quesNo - 1],
       };
+      setQuizData(arr2);
       setQuesStatus(arr);
       setQuesNo(quesNo + 1);
       setNoOptionSelected(false);
@@ -352,7 +354,7 @@ let Quiz = ({ navigation, route }: any) => {
                         flexDirection: "row",
                       }}
                     >
-                      <Pressable onPress={() => { navigation.navigate("CongratsScreen"); }}>
+                      <Pressable onPress={() => { navigation.navigate("CongratsScreen",{data:quizData}); }}>
                         <View style={styles.textYes}>
                           <Text
                             allowFontScaling={false}
