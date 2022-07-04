@@ -7,12 +7,19 @@ import {
   Text,
   ScrollView,
   Modal,
-
 } from "react-native";
 import CategoryCard from "../components/categoryCard";
+import { GeminiQuiz } from "../data/quizData";
+
+let Quiz_Info: any = [];
+Object.entries(GeminiQuiz).forEach(([e, value]) => {
+  Quiz_Info.push(value.Basic_Details);
+});
+
 const Home = ({ navigation }: any) => {
   let [modalVis, setModalVis] = useState(true);
   let [quizConfirmModal, setQuizConfirmModal] = useState(false);
+  let selectedQuiz = "";
 
   useEffect(() => {
     setTimeout(function () {
@@ -20,16 +27,18 @@ const Home = ({ navigation }: any) => {
     }, 1000);
   }, []);
 
-  function startQuizModal(value: any) {
+  function startQuizModal(value: any, id: any) {
+    selectedQuiz = id;
+    console.log(selectedQuiz);
     setQuizConfirmModal(value);
   }
-
 
   return (
     <View style={styles.container}>
       {modalVis && (
         <Modal visible={modalVis} style={styles.flashModal}>
-          <Image source={require("../../assets/Splash.png")}></Image>
+          {/* <Image source={require("../../assets/Splash.png")}></Image> */}
+          <Text>HI How are You</Text>
         </Modal>
       )}
       {quizConfirmModal && (
@@ -120,9 +129,14 @@ const Home = ({ navigation }: any) => {
               >
                 No negative marking for incorrect answers.
               </Text>
-              <TouchableOpacity style={styles.finalStartBtn} onPress={() => {
-                navigation.navigate("Quiz");
-              }}>
+              <TouchableOpacity
+                style={styles.finalStartBtn}
+                onPress={() => {
+                  navigation.navigate("Quiz", {
+                    Questionare: GeminiQuiz[196546].Questionare,
+                  });
+                }}
+              >
                 <Text style={{ color: "#fff", fontSize: 20 }}>
                   Start Your Quiz
                 </Text>
@@ -238,8 +252,24 @@ const Home = ({ navigation }: any) => {
           Quiz Categories
         </Text>
         <View style={styles.quizContainer}>
-          <CategoryCard startQuizModal={startQuizModal} />
-          <CategoryCard startQuizModal={startQuizModal} />
+          {Quiz_Info.map((e: any, id: any) => {
+            if (
+              Number(e.TimePeriod.end.split("-")[2]) >=
+                new Date().getFullYear() &&
+              Number(e.TimePeriod.end.split("-")[1]) >=
+                new Date().getMonth() + 1 &&
+              Number(e.TimePeriod.end.split("-")[0]) >= new Date().getDate()
+            ) {
+              return (
+                <CategoryCard
+                  startQuizModal={startQuizModal}
+                  data={e}
+                  key={id}
+                />
+              );
+            }
+            return null;
+          })}
         </View>
 
         <View style={styles.footer}>
