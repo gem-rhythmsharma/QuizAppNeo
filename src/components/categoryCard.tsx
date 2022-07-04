@@ -1,10 +1,20 @@
-import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Text,Image } from "react-native";
 
-let CategoryCard = ({ startQuizModal }: any) => {
+let CategoryCard = ({ startQuizModal,data }: any) => {
+  let month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
   return (
     <View style={styles.boxContainer}>
       <View style={styles.logoIcon}>
-        <Text>Logo</Text>
+        <Image
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
+          source={{
+            uri: data.logoUrl,
+          }}
+          resizeMode="contain"
+        />
       </View>
       <View>
         <Text
@@ -15,7 +25,7 @@ let CategoryCard = ({ startQuizModal }: any) => {
             marginLeft: 10,
           }}
         >
-          Gemini Test
+          {data.Topic}
         </Text>
         <Text
           style={{
@@ -25,7 +35,7 @@ let CategoryCard = ({ startQuizModal }: any) => {
             marginLeft: 10,
           }}
         >
-          Duration :16 minutes
+          Duration :{data.Time} minutes
         </Text>
         <Text
           style={{
@@ -35,13 +45,16 @@ let CategoryCard = ({ startQuizModal }: any) => {
             marginLeft: 10,
           }}
         >
-          From : 26 Nov -16 dec
+          From : {data.TimePeriod.start.split("-")[0]}{" "}
+          {month[data.TimePeriod.start.split("-")[1] - 1]} -
+          {data.TimePeriod.end.split("-")[0]}{" "}
+          {month[data.TimePeriod.end.split("-")[1] - 1]}
         </Text>
 
         <TouchableOpacity
           style={styles.startQuizBtn}
           onPress={() => {
-            startQuizModal(true);
+            startQuizModal(true,data.Id);
             // setQuizConfirmModal(true);
           }}
         >
@@ -86,7 +99,6 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 100,
     width: 100,
-    backgroundColor: "aqua",
     justifyContent: "center",
     alignItems: "center",
   },
