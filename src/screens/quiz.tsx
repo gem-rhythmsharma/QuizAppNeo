@@ -67,7 +67,7 @@ let Quiz = ({ navigation, route }: any) => {
   const alert = () => {
     SetshowWarning(true);
   };
-  
+
   const showWarningfalse = () => {
     SetshowWarning(false);
   };
@@ -317,75 +317,77 @@ let Quiz = ({ navigation, route }: any) => {
           </TouchableOpacity>
         </View>
       </View>
-      {showWarning && (
-        <View style={styles.body}>
-          <Modal
-            visible={showWarning}
-            transparent
-            onRequestClose={() => showWarningfalse()}
-          >
-            <View style={styles.centered_view}>
-              <View style={styles.warning_modal}>
-                <View style={styles.modal_heading}>
-                  <FontAwesome
-                    name="exclamation-circle"
-                    style={{
-                      color: "white",
-                      fontSize: 20,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      top: "30%",
-                    }}
-                  ></FontAwesome>
-                  <Text allowFontScaling={false} style={styles.textheading}>
-                    Confirm Exit
-                  </Text>
-                </View>
-                <View style={[styles.modal_body]}>
-                  <Text allowFontScaling={false} style={styles.text}>
-                    Are you sure you want to end the quiz ?
-                  </Text>
-                  <View
-                    style={{
-                      justifyContent: "flex-end",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <Pressable onPress={() => console.log("hello")}>
-                      <View style={styles.textYes}>
-                        <Text
-                          allowFontScaling={false}
-                          style={{
-                            alignSelf: "center",
-                            color: "white",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          YES
-                        </Text>
-                      </View>
-                    </Pressable>
-                    <Pressable onPress={() => showWarningfalse()}>
-                      <View style={styles.textNo}>
-                        <Text
-                          allowFontScaling={false}
-                          style={{
-                            alignSelf: "center",
-                            color: "grey",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          NO
-                        </Text>
-                      </View>
-                    </Pressable>
+      {
+        showWarning && (
+          <View style={styles.body}>
+            <Modal
+              visible={showWarning}
+              transparent
+              onRequestClose={() => showWarningfalse()}
+            >
+              <View style={styles.centered_view}>
+                <View style={styles.warning_modal}>
+                  <View style={styles.modal_heading}>
+                    <FontAwesome
+                      name="exclamation-circle"
+                      style={{
+                        color: "white",
+                        fontSize: 20,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        top: "30%",
+                      }}
+                    ></FontAwesome>
+                    <Text allowFontScaling={false} style={styles.textheading}>
+                      Confirm Exit
+                    </Text>
+                  </View>
+                  <View style={[styles.modal_body]}>
+                    <Text allowFontScaling={false} style={styles.text}>
+                      Are you sure you want to end the quiz ?
+                    </Text>
+                    <View
+                      style={{
+                        justifyContent: "flex-end",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <Pressable onPress={() => { navigation.navigate("CongratsScreen"); }}>
+                        <View style={styles.textYes}>
+                          <Text
+                            allowFontScaling={false}
+                            style={{
+                              alignSelf: "center",
+                              color: "white",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            YES
+                          </Text>
+                        </View>
+                      </Pressable>
+                      <Pressable onPress={() => showWarningfalse()}>
+                        <View style={styles.textNo}>
+                          <Text
+                            allowFontScaling={false}
+                            style={{
+                              alignSelf: "center",
+                              color: "grey",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            NO
+                          </Text>
+                        </View>
+                      </Pressable>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-          </Modal>
-        </View>
-      )}
+            </Modal>
+          </View>
+        )
+      }
     </View>
   );
 };
