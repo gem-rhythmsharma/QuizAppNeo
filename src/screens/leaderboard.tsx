@@ -1,7 +1,15 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import { useEffect } from "react";
+import { StyleSheet, Text, View, Image, ScrollView, BackHandler } from "react-native";
 import LeaderBoardCard from "../components/leaderBoardCard";
 
-let Leaderboard = () => {
+let Leaderboard = ({ navigation }: any) => {
+  useEffect(() => {
+    const backbuttonHander = () => {
+      navigation.navigate("Home");
+      return true;
+    };
+    BackHandler.addEventListener("hardwareBackPress", backbuttonHander);
+  });
   return (
     <View style={{ backgroundColor: "#67A4FE", height: "100%", width: "100%" }}>
       <Image
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingTop: 70,
   },
-  
+
 });
 
 export default Leaderboard;

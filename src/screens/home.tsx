@@ -17,7 +17,7 @@ const Home = ({ navigation }: any) => {
   useEffect(() => {
     setTimeout(function () {
       setModalVis(false);
-    }, 1000);
+    }, 3000);
   }, []);
 
   function startQuizModal(value: any) {
@@ -28,8 +28,8 @@ const Home = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       {modalVis && (
-        <Modal visible={modalVis} style={styles.flashModal}>
-          <Image source={require("../../assets/Splash.png")}></Image>
+        <Modal visible={modalVis}>
+          <Image source={require("../../assets/Splash.png")} style={styles.flashModal}></Image>
         </Modal>
       )}
       {quizConfirmModal && (
@@ -364,9 +364,8 @@ const styles = StyleSheet.create({
     height: 330,
   },
   flashModal: {
-    height: "100%",
     width: "100%",
-    backgroundColor: "green",
+    height: "100%",
   },
   confirmQuizModal: {
     backgroundColor: "#000000aa",
