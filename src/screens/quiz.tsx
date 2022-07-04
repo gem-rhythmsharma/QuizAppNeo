@@ -25,7 +25,7 @@ function shuffleArray(array: any) {
   return array;
 }
 
-let Quiz = () => {
+let Quiz = ({ navigation }: any) => {
   let [quesNo, setQuesNo] = useState(1);
   let [currentTime, setCurrentTime] = useState(5 * 60);
   let [selected, setSelected] = useState(false);
@@ -228,7 +228,7 @@ let Quiz = () => {
                         flexDirection: "row",
                       }}
                     >
-                      <Pressable onPress={() => console.log("hello")}>
+                      <Pressable onPress={() => { navigation.navigate("CongratsScreen"); }}>
                         <View style={styles.textYes}>
                           <Text
                             allowFontScaling={false}
